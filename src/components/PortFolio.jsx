@@ -9,14 +9,14 @@ function PortFolio() {
       id: 1,
       logo: reactjs,
       name: "ReactJS",
-      description: "A project built with ReactJS for a dynamic user interface.",
-      gitHubLink: "https://github.com/username/reactjs-project",
+      description: "A  PortFolio  project built with ReactJS.",
+      gitHubLink: "https://github.com/GiangNTruong/ProtFolio_Giang",
     },
     {
       id: 2,
       logo: java,
       name: "Java",
-      description: "A project about customer management",
+      description: "A project about customer management.",
       gitHubLink: "https://github.com/GiangNTruong/Project_KetThucSesssion02",
     },
     {

@@ -1,7 +1,7 @@
-import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
+import emailjs from "emailjs-com";
 
 function Contact() {
   const {
@@ -12,12 +12,17 @@ function Contact() {
 
   const onSubmit = async (data) => {
     const userInfo = {
-      name: data.name,
-      email: data.email,
+      from_name: data.name,
+      from_email: data.email,
       message: data.message,
     };
     try {
-      await axios.post("https://getform.io/f/raeqjora", userInfo);
+      await emailjs.send(
+        "service_qofuglc", // Thay thế bằng ID của dịch vụ EmailJS của bạn
+        "template_mzkgqup", // Thay thế bằng ID của template EmailJS của bạn
+        userInfo,
+        "QU2ZsCA33c5obc4zP" // Thay thế bằng Public Key của bạn
+      );
       toast.success("Your message has been sent");
     } catch (error) {
       console.log(error);
@@ -35,8 +40,8 @@ function Contact() {
         <span className="text-lg mb-8 block">
           Work together and create value for society
         </span>
-        <div className=" flex flex-col md:flex-row items-center justify-between mt-5">
-          <div className=" w-[500px] h-[400px] px-8 py-6 rounded-xl mb-5 md:mb-0 md:mr-10">
+        <div className="flex flex-col md:flex-row items-center justify-between mt-5">
+          <div className="w-[500px] h-[400px] px-8 py-6 rounded-xl mb-5 md:mb-0 md:mr-10">
             <h2 className="text-3xl font-semibold mb-4">Contact Information</h2>
             <p className="mb-2">
               Feel free to contact me if you have any questions or would like to
@@ -62,18 +67,18 @@ function Contact() {
           </div>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className=" h-[400px] w-96 px-8 py-6 rounded-xl"
+            className="h-[400px] w-96 px-8 py-6 rounded-xl"
           >
             <h1 className="text-3xl font-semibold mb-4">Send Your Message</h1>
             <div className="flex flex-col mb-4">
-              <label className="block text-gray-700">FullName</label>
+              <label className="block text-gray-700">Full Name</label>
               <input
                 {...register("name", { required: true })}
                 className="shadow rounded-lg appearance-none border py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="name"
                 name="name"
                 type="text"
-                placeholder="Enter your fullname"
+                placeholder="Enter your full name"
               />
               {errors.name && <span>This field is required</span>}
             </div>
@@ -84,7 +89,7 @@ function Contact() {
                 className="shadow rounded-lg appearance-none border py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="email"
                 name="email"
-                type="text"
+                type="email"
                 placeholder="Enter your email address"
               />
               {errors.email && <span>This field is required</span>}
@@ -96,8 +101,7 @@ function Contact() {
                 className="shadow rounded-lg appearance-none border py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="message"
                 name="message"
-                type="text"
-                placeholder="Enter your Query"
+                placeholder="Enter your message"
               />
               {errors.message && <span>This field is required</span>}
             </div>
@@ -109,6 +113,7 @@ function Contact() {
             </button>
           </form>
         </div>
+        <Toaster />
       </div>
     </>
   );
